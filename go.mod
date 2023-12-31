@@ -1,4 +1,4 @@
-module github.com/hashicorp/http-echo
+module github.com/multi-io/http-echo
 
 go 1.21.0
 

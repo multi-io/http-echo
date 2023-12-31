@@ -18,7 +18,7 @@ GOMAXPROCS ?= 4
 # Get the project metadata
 GOVERSION := $(shell go version | awk '{print $3}' | sed -e 's/^go//')
 PROJECT := $(CURRENT_DIR:$(GOPATH)/src/%=%)
-OWNER ?= hashicorp
+OWNER ?= multi-io
 NAME ?= http-echo
 REVISION ?= $(shell git rev-parse --short HEAD)
 VERSION := $(shell cat "${CURRENT_DIR}/version/VERSION")
@@ -41,9 +41,9 @@ XC_EXCLUDE ?=
 LD_FLAGS ?= \
 	-s \
 	-w \
-	-X 'github.com/hashicorp/http-echo/version.Version=${VERSION}' \
-	-X 'github.com/hashicorp/http-echo/version.GitCommit=${REVISION}' \
-	-X 'github.com/hashicorp/http-echo/version.Timestamp=${TIMESTAMP}'
+	-X 'github.com/multi-io/http-echo/version.Version=${VERSION}' \
+	-X 'github.com/multi-io/http-echo/version.GitCommit=${REVISION}' \
+	-X 'github.com/multi-io/http-echo/version.Timestamp=${TIMESTAMP}'
 
 # List of tests to run
 TEST ?= ./...
@@ -57,16 +57,16 @@ dist:
 	mkdir -p $(DIST)
 
 # build is used for the CRT build.yml workflow. 
-# Environment variables are populated by hashicorp/actions-go-build, not the makefile.
-# https://github.com/hashicorp/actions-go-build
+# Environment variables are populated by multi-io/actions-go-build, not the makefile.
+# https://github.com/multi-io/actions-go-build
 build:
 	CGO_ENABLED=0 go build \
 		-a \
 		-o="${BIN_PATH}" \
 		-ldflags " \
-			-X 'github.com/hashicorp/http-echo/version.Version=${PRODUCT_VERSION}' \
-			-X 'github.com/hashicorp/http-echo/version.GitCommit=${PRODUCT_REVISION}' \
-			-X 'github.com/hashicorp/http-echo/version.Timestamp=${PRODUCT_REVISION_TIME}' \
+			-X 'github.com/multi-io/http-echo/version.Version=${PRODUCT_VERSION}' \
+			-X 'github.com/multi-io/http-echo/version.GitCommit=${PRODUCT_REVISION}' \
+			-X 'github.com/multi-io/http-echo/version.Timestamp=${PRODUCT_REVISION_TIME}' \
 		" \
 		-tags "${GOTAGS}" \
 		-trimpath \

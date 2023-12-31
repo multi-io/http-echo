@@ -92,7 +92,8 @@ func main() {
 
 func httpEcho(v string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, v)
+        hostname, _ := os.Hostname()
+        fmt.Fprintf(w, "%s: %s", hostname, v)
 	}
 }
 
